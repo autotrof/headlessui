@@ -116,9 +116,10 @@ export function Disclosure<TTag extends ElementType = typeof DEFAULT_DISCLOSURE_
   useEffect(() => dispatch({ type: ActionTypes.SetButtonId, buttonId }), [buttonId, dispatch])
   useEffect(() => dispatch({ type: ActionTypes.SetPanelId, panelId }), [panelId, dispatch])
 
-  let propsBag = useMemo(() => ({ open: disclosureState === DisclosureStates.Open }), [
-    disclosureState,
-  ])
+  let propsBag = useMemo<DisclosureRenderPropArg>(
+    () => ({ open: disclosureState === DisclosureStates.Open }),
+    [disclosureState]
+  )
 
   return (
     <DisclosureContext.Provider value={reducerBag}>
@@ -170,7 +171,10 @@ let Button = forwardRefWithAs(function Button<TTag extends ElementType = typeof 
     [dispatch, props.disabled]
   )
 
-  let propsBag = useMemo(() => ({ open: state.disclosureState === DisclosureStates.Open }), [state])
+  let propsBag = useMemo<ButtonRenderPropArg>(
+    () => ({ open: state.disclosureState === DisclosureStates.Open }),
+    [state]
+  )
 
   let passthroughProps = props
   let propsWeControl = {
